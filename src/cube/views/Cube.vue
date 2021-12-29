@@ -1,57 +1,99 @@
 <template lang="pug">
-.cube-area
+.cube-area(@click="changePosition")
   .rotate-x
     .rotate-y
       .rotate-z
         .cube
           .cube-face(
-            v-for="side, index in cube",
+            v-for="side, index in cubeCompleted",
+            :key="index",
             :class="index"
           )
-            template(v-for="row in side")
-              .cube-item(
-                v-for="color of row",
-                :style="{'background-color' : color}"
-              )
+            .cube-item(
+              v-for="color, itemIndex of side",
+              :key="itemIndex",
+              :style="{'background-color' : color}"
+            )
 </template>
 
 <script>
+import CubeMoves from '../services/cube'
+
 export default {
   name: 'Cube',
   data () {
     return {
       cube: {
-        front: {
-          top: ['blue', 'blue', 'blue'],
-          middle: ['blue', 'blue', 'blue'],
-          bottom: ['blue', 'blue', 'blue'],
-        },
-        back: {
-          top: ['red', 'red', 'red'],
-          middle: ['red', 'red', 'red'],
-          bottom: ['red', 'red', 'red'],
-        },
-        right: {
-          top: ['green', 'green', 'green'],
-          middle: ['green', 'green', 'green'],
-          bottom: ['green', 'green', 'green'],
-        },
-        left: {
-          top: ['orange', 'orange', 'orange'],
-          middle: ['orange', 'orange', 'orange'],
-          bottom: ['orange', 'orange', 'orange'],
-        },
-        top: {
-          top: ['yellow', 'yellow', 'yellow'],
-          middle: ['yellow', 'yellow', 'yellow'],
-          bottom: ['yellow', 'yellow', 'yellow'],
-        },
-        bottom: {
-          top: ['white', 'white', 'white'],
-          middle: ['white', 'white', 'white'],
-          bottom: ['white', 'white', 'white'],
-        },
+        front: [
+          'orange', 'yellow', 'white',
+          'orange', 'blue', 'white',
+          'orange', 'blue', 'red'
+        ],
+        back: [
+          'green', 'red', 'yellow',
+          'green', 'green', 'yellow',
+          'green', 'blue', 'green'
+        ],
+        right: [
+          'green', 'green', 'orange',
+          'orange', 'red', 'red',
+          'white', 'red', 'yellow'
+        ],
+        left: [
+          'blue', 'yellow', 'yellow',
+          'orange', 'orange', 'blue',
+          'yellow', 'white', 'white'
+        ],
+        top: [
+          'red', 'yellow', 'white',
+          'green', 'yellow', 'orange',
+          'blue', 'blue', 'red',
+        ],
+        bottom: [
+          'blue', 'red', 'blue',
+          'green', 'white', 'white',
+          'orange', 'white', 'red'
+        ],
+      },
+      cubeCompleted: {
+        front: [
+          'red', 'red', 'red',
+          'red', 'red', 'red',
+          'red', 'red', 'red'
+        ],
+        back: [
+          'orange', 'orange', 'orange',
+          'orange', 'orange', 'orange',
+          'orange', 'orange', 'orange'
+        ],
+        right: [
+          'green', 'green', 'green',
+          'green', 'green', 'green',
+          'green', 'green', 'green'
+        ],
+        left: [
+          'blue', 'blue', 'blue',
+          'blue', 'blue', 'blue',
+          'blue', 'blue', 'blue'
+        ],
+        top: [
+          'yellow', 'yellow', 'yellow',
+          'yellow', 'yellow', 'yellow',
+          'yellow', 'yellow', 'yellow',
+        ],
+        bottom: [
+          'white', 'white', 'white',
+          'white', 'white', 'white',
+          'white', 'white', 'white'
+        ],
       }
+    }
+  },
+  methods: {
+    changePosition () {
+      const cubeMoves = new CubeMoves()
+
+      this.cubeCompleted = cubeMoves.RAH(this.cubeCompleted)
     }
   }
 }
@@ -79,17 +121,17 @@ export default {
   justify-content: center;
   align-items: center;
   .rotate-x {
-    animation: rotateZ 20s linear infinite;
+    animation: rotateX 20s linear infinite;
     transform-style: preserve-3d;
-    width: 450px;
-    height: 450px;
+    width: 50vh;
+    height: 50vh;
     .rotate-y {
-      animation: rotateZ 20s linear infinite;
+      animation: rotateY 20s linear infinite;
       transform-style: preserve-3d;
       width: 100%;
       height: 100%;
       .rotate-z {
-        animation: rotateY 20s linear infinite;
+        animation: rotateZ 20s linear infinite;
         transform-style: preserve-3d;
         width: 100%;
         height: 100%;
@@ -114,32 +156,32 @@ export default {
             position: absolute;
       
             &.front {
-              transform: rotateZ(90deg) translateZ(225px);
+              transform: rotateZ(360deg) translateZ(25vh);
             }
       
             &.back {
-              transform: rotateZ(90deg) translateZ(-225px);
+              transform: rotateZ(360deg) translateZ(-25vh) scaleY(-1);
             }
             
             &.right {
-              transform: rotateY(90deg) translateZ(225px);
+              transform: rotateY(90deg) translateZ(25vh);
             }
       
             &.left {
-              transform: rotateY(90deg) translateZ(-225px);
+              transform: rotateY(90deg) translateZ(-25vh) scaleX(-1);
             }
       
             &.top {
-              transform: rotateX(90deg) translateZ(225px);
+              transform: rotateX(90deg) translateZ(25vh);
             }
       
             &.bottom {
-              transform: rotateX(90deg) translateZ(-225px);
+              transform: rotateX(90deg) translateZ(-25vh) scaleY(-1);
             }
       
             .cube-item {
-              width: calc(150px - 11px);
-              height: calc(150px - 11px);
+              width: calc(16.7vh - 11px);
+              height: calc(16.7vh - 11px);
               box-sizing: border-box;
               background-color: red;
               &:nth-child(2), &:nth-child(5), &:nth-child(8) {
