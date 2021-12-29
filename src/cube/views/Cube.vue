@@ -25,46 +25,46 @@ export default {
     return {
       cube: {
         front: [
-          'orange', 'yellow', 'white',
-          'orange', 'blue', 'white',
-          'orange', 'blue', 'red'
+          '#ff6400', 'yellow', 'white',
+          '#ff6400', 'blue', 'white',
+          '#ff6400', 'blue', '#8b0000'
         ],
         back: [
-          'green', 'red', 'yellow',
+          'green', '#8b0000', 'yellow',
           'green', 'green', 'yellow',
           'green', 'blue', 'green'
         ],
         right: [
-          'green', 'green', 'orange',
-          'orange', 'red', 'red',
-          'white', 'red', 'yellow'
+          'green', 'green', '#ff6400',
+          '#ff6400', '#8b0000', '#8b0000',
+          'white', '#8b0000', 'yellow'
         ],
         left: [
           'blue', 'yellow', 'yellow',
-          'orange', 'orange', 'blue',
+          '#ff6400', '#ff6400', 'blue',
           'yellow', 'white', 'white'
         ],
         top: [
-          'red', 'yellow', 'white',
-          'green', 'yellow', 'orange',
-          'blue', 'blue', 'red',
+          '#8b0000', 'yellow', 'white',
+          'green', 'yellow', '#ff6400',
+          'blue', 'blue', '#8b0000',
         ],
         bottom: [
-          'blue', 'red', 'blue',
+          'blue', '#8b0000', 'blue',
           'green', 'white', 'white',
-          'orange', 'white', 'red'
+          '#ff6400', 'white', '#8b0000'
         ],
       },
       cubeCompleted: {
         front: [
-          'red', 'red', 'red',
-          'red', 'red', 'red',
-          'red', 'red', 'red'
+          '#8b0000', '#8b0000', '#8b0000',
+          '#8b0000', '#8b0000', '#8b0000',
+          '#8b0000', '#8b0000', '#8b0000'
         ],
         back: [
-          'orange', 'orange', 'orange',
-          'orange', 'orange', 'orange',
-          'orange', 'orange', 'orange'
+          '#ff6400', '#ff6400', '#ff6400',
+          '#ff6400', '#ff6400', '#ff6400',
+          '#ff6400', '#ff6400', '#ff6400'
         ],
         right: [
           'green', 'green', 'green',
@@ -93,7 +93,7 @@ export default {
     changePosition () {
       const cubeMoves = new CubeMoves()
 
-      this.cubeCompleted = cubeMoves.RAH(this.cubeCompleted)
+      this.cubeCompleted = cubeMoves.BAH(this.cubeCompleted)
     }
   }
 }
@@ -121,7 +121,7 @@ export default {
   justify-content: center;
   align-items: center;
   .rotate-x {
-    animation: rotateX 20s linear infinite;
+    // animation: rotateX 20s linear infinite;
     transform-style: preserve-3d;
     width: 50vh;
     height: 50vh;
@@ -131,7 +131,7 @@ export default {
       width: 100%;
       height: 100%;
       .rotate-z {
-        animation: rotateZ 20s linear infinite;
+        // animation: rotateZ 20s linear infinite;
         transform-style: preserve-3d;
         width: 100%;
         height: 100%;
@@ -160,7 +160,7 @@ export default {
             }
       
             &.back {
-              transform: rotateZ(360deg) translateZ(-25vh) scaleY(-1);
+              transform: rotateZ(180deg) translateZ(-25vh) scaleY(-1);
             }
             
             &.right {
@@ -183,7 +183,7 @@ export default {
               width: calc(16.7vh - 11px);
               height: calc(16.7vh - 11px);
               box-sizing: border-box;
-              background-color: red;
+              background-color: #8b0000;
               &:nth-child(2), &:nth-child(5), &:nth-child(8) {
                 margin: 0 16px
               }
